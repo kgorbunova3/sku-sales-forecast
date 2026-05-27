@@ -12,13 +12,32 @@
 sku-sales-forecast/
 ├── README.md
 ├── docs/
-│   ├── TZ.md                  ← технічне завдання
-│   └── REPORT.md              ← звіт з результатами
+│   ├── TZ.md                  ← технічне завдання (коротке)
+│   ├── TZ_marketplace.docx    ← розгорнуте ТЗ за шаблоном (20 розділів)
+│   ├── REPORT.md              ← звіт з результатами
+│   ├── presentation.pptx      ← презентація для захисту (12 слайдів)
+│   ├── db_schema.md           ← опис схеми БД + mermaid ER
+│   ├── db_schema.drawio       ← ER-діаграма (drawio)
+│   └── sql_queries.md         ← DDL + JOIN-запит для формування dataset
 ├── data/
-│   └── sku_sales_dataset.csv  ← синтетичний датасет
+│   ├── sku_sales_dataset.csv  ← основний синтетичний датасет (10 980 рядків)
+│   └── db/                    ← набір таблиць БД (dim + fact)
+│       ├── db_sample_data.xlsx  ← всі таблиці в одному файлі
+│       ├── dim_category.csv
+│       ├── dim_sku.csv
+│       ├── dim_store.csv
+│       ├── dim_holidays.csv
+│       ├── dim_promo_calendar.csv
+│       ├── sales_fact.csv
+│       ├── inventory_snapshot.csv
+│       └── dataset.csv         ← фінальна view-таблиця (JOIN)
 ├── scripts/
-│   ├── generate_dataset.py    ← генерація датасету
-│   └── build_notebook.py      ← збірка notebook
+│   ├── generate_dataset.py    ← генерація основного датасету
+│   ├── generate_db_tables.py  ← генерація таблиць БД
+│   ├── build_drawio_schema.py ← збірка drawio
+│   ├── build_notebook.py      ← збірка notebook
+│   ├── build_marketplace_tz.py
+│   └── build_presentation.py
 ├── notebook/
 │   └── sku_sales_forecast.ipynb
 └── outputs/
@@ -28,6 +47,12 @@ sku-sales-forecast/
     ├── order_quantity.csv
     └── 01_…04_*.png           ← графіки
 ```
+
+## Схема БД
+
+Повна ER-діаграма + опис JOIN-логіки — у [`docs/db_schema.md`](docs/db_schema.md)
+(рендериться як інтерактивний mermaid прямо в GitHub).
+Drawio-файл для редагування: [`docs/db_schema.drawio`](docs/db_schema.drawio).
 
 ## Швидкий старт
 

@@ -1,0 +1,16 @@
+sku_id,sku_name,category_id,brand,weight_kg,unit_price,is_active
+64500,Lenovo model 500,80001,Lenovo,2.38,23121.0,True
+64501,ASUS model 501,80001,ASUS,1.57,25531.0,True
+64502,Acer model 502,80001,Acer,1.85,28452.0,True
+64503,HP model 503,80001,HP,2.51,40350.0,True
+64504,Apple model 504,80001,Apple,1.41,39696.0,True
+64505,Samsung model 505,80002,Samsung,0.18,14172.0,True
+64506,Xiaomi model 506,80002,Xiaomi,0.24,16768.0,True
+64507,Apple model 507,80002,Apple,0.17,19489.0,True
+64508,Google model 508,80002,Google,0.24,9197.0,True
+64509,OnePlus model 509,80002,OnePlus,0.18,32584.0,True
+64510,Samsung model 510,80003,Samsung,62.76,25479.0,True
+64511,LG model 511,80003,LG,58.42,32332.0,True
+64512,Bosch model 512,80003,Bosch,84.47,36790.0,True
+64513,Whirlpool model 513,80003,Whirlpool,77.35,25369.0,True
+64514,Beko model 514,80003,Beko,89.76,37164.0,True
