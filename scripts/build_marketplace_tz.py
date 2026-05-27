@@ -74,8 +74,7 @@ def build():
 
     meta = doc.add_paragraph()
     meta.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    meta.add_run("Виконавець: Горбунова Крістіна, група УМ-з31\n").italic = True
-    meta.add_run("Травень 2026").italic = True
+    meta.add_run("Виконавець: Горбунова Крістіна, група УМ-з31").italic = True
 
     doc.add_paragraph()  # spacer
 
@@ -294,9 +293,18 @@ def build():
     add_heading(doc, "15. Презентація")
     add_body(
         doc,
-        "У розробці. Посилання на слайди для захисту проекту буде додано до фінального дедлайну "
-        "(30 червня 2026). Місце збереження: спільний Google Drive команди.",
-        italic=True,
+        "Слайди для захисту проекту (12 слайдів, .pptx): структура — бізнес-проблема, дані, "
+        "модель, метрики, формула замовлення, бізнес-ефект, висновки.",
+    )
+    add_kv(
+        doc,
+        "Файл презентації",
+        "https://github.com/kgorbunova3/sku-sales-forecast/blob/main/docs/presentation.pptx",
+    )
+    add_kv(
+        doc,
+        "Пряме завантаження",
+        "https://github.com/kgorbunova3/sku-sales-forecast/raw/main/docs/presentation.pptx",
     )
 
     # ------------------------------------------------------------------ 16
