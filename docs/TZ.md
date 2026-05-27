@@ -120,8 +120,8 @@ Q = Fct − St − GiT + SS_Fct
 
 ## 9. Посилання на задачі (Kanban)
 
-- Issue #1 — Написання ТЗ *(цей документ)*
-- Issue #2 — Формування Датасету
-- Issue #3 — Вибір та запуск моделі
-- Issue #4 — Вибір та оцінка метрик
-- Issue #5 — Формування звіту з результатами
+- [Задача #1 — Написання ТЗ](https://github.com/kgorbunova3/sku-sales-forecast/issues/1) *(цей документ)*
+- [Задача #2 — Формування Датасету](https://github.com/kgorbunova3/sku-sales-forecast/issues/2)
+- [Задача #3 — Вибір та запуск моделі](https://github.com/kgorbunova3/sku-sales-forecast/issues/3)
+- [Задача #4 — Вибір та оцінка метрик](https://github.com/kgorbunova3/sku-sales-forecast/issues/4)
+- [Задача #5 — Формування звіту з результатами](https://github.com/kgorbunova3/sku-sales-forecast/issues/5)
