@@ -5,3 +5,15 @@ __pycache__/
 .ipynb_checkpoints/
 ~$*
 *.lock
+
+# Робочі (локальні) — не публікуємо на GitHub
+scripts/
+docs/TZ.md
+docs/REPORT.md
+docs/db_schema.md
+docs/db_schema.dot
+docs/db_schema.drawio
+data/db/dim_*.csv
+data/db/sales_fact.csv
+data/db/inventory_snapshot.csv
+data/db/dataset.csv
