@@ -127,7 +127,7 @@ def html_label(name: str, cols: list[tuple[str, str, str]], header_color: str) -
 dot_lines = [
     'digraph DB {',
     '  rankdir=LR;',
-    '  graph [bgcolor="white", pad="0.5", nodesep="0.8", ranksep="1.6", splines="spline", concentrate=false];',
+    '  graph [bgcolor="white", pad="0.6", nodesep="0.4", ranksep="2.4", splines="spline", overlap=false];',
     '  node [shape=plaintext, fontname="Helvetica", fontsize=12];',
     '  edge [fontname="Helvetica", fontsize=10, color="' + NAVY + '", penwidth=1.4];',
     '',
@@ -137,17 +137,40 @@ for name, cols in TABLES.items():
     color = ACCENT if name == "dataset" else NAVY
     dot_lines.append(f'  {name} [label={html_label(name, cols, color)}];')
 
+# Фіксуємо 4 колонки шляхом штучних "ranks"
 dot_lines.append('')
+dot_lines.append('  // Layout: 4 ranks left → right')
+dot_lines.append('  { rank=same; dim_category; dim_holidays; }')
+dot_lines.append('  { rank=same; dim_sku; dim_store; }')
+dot_lines.append('  { rank=same; sales_fact; inventory_snapshot; dim_promo_calendar; }')
+dot_lines.append('  { rank=same; dataset; }')
+
+dot_lines.append('')
+dot_lines.append("  // Невидимі edges для ранжування зліва направо")
+dot_lines.append('  dim_category -> dim_sku [style=invis];')
+dot_lines.append('  dim_sku -> sales_fact [style=invis];')
+dot_lines.append('  sales_fact -> dataset [style=invis];')
+
+dot_lines.append('')
+dot_lines.append("  // FK-зв'язки (від parent до child, з відображенням кардинальності 1 : N)")
+# Edges йдуть DIM → FACT для коректного layout LR.
+# Стрілки малюємо обернено: parent → child з "crow" на боці child.
 for src_t, src_c, dst_t, dst_c in EDGES:
+    # src_t = child (FK), dst_t = parent (PK) — інвертуємо для розкладки
     dot_lines.append(
-        f'  {src_t}:{src_c}:e -> {dst_t}:{dst_c}:w '
-        f'[label="N : 1", arrowhead=crow, arrowtail=none];'
+        f'  {dst_t}:{dst_c}:e -> {src_t}:{src_c}:w '
+        f'[label="1 : N", arrowhead=crow, arrowtail=none];'
     )
 
+dot_lines.append('')
+dot_lines.append("  // JOIN-зв'язки до dataset — constraint=false, не впливають на layout")
 for src_t, src_c, dst_t, dst_c in JOIN_EDGES:
+    # src_t = dataset (right), dst_t = source table (left)
+    # Едж від лівої таблиці до dataset
     dot_lines.append(
-        f'  {src_t}:{src_c}:e -> {dst_t}:{dst_c}:w '
-        f'[label="JOIN", color="{ACCENT}", fontcolor="{ACCENT}", style="dashed", arrowhead=open];'
+        f'  {dst_t}:{dst_c}:e -> {src_t}:{src_c}:w '
+        f'[label="JOIN", color="{ACCENT}", fontcolor="{ACCENT}", style="dashed", '
+        f'arrowhead=open, constraint=false];'
     )
 
 dot_lines.append('}')

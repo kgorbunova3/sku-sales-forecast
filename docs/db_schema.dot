@@ -1,6 +1,6 @@
 digraph DB {
   rankdir=LR;
-  graph [bgcolor="white", pad="0.5", nodesep="0.8", ranksep="1.6", splines="spline", concentrate=false];
+  graph [bgcolor="white", pad="0.6", nodesep="0.4", ranksep="2.4", splines="spline", overlap=false];
   node [shape=plaintext, fontname="Helvetica", fontsize=12];
   edge [fontname="Helvetica", fontsize=10, color="#0E2D5C", penwidth=1.4];
 
@@ -86,14 +86,28 @@ digraph DB {
   <TR><TD WIDTH="40" ALIGN="CENTER" PORT="is_holiday"></TD><TD ALIGN="LEFT">is_holiday</TD><TD ALIGN="LEFT"><FONT COLOR="#666666">BOOLEAN</FONT></TD></TR>
 </TABLE>>];
 
-  dim_sku:category_id:e -> dim_category:category_id:w [label="N : 1", arrowhead=crow, arrowtail=none];
-  dim_promo_calendar:sku_id:e -> dim_sku:sku_id:w [label="N : 1", arrowhead=crow, arrowtail=none];
-  dim_promo_calendar:store_id:e -> dim_store:store_id:w [label="N : 1", arrowhead=crow, arrowtail=none];
-  sales_fact:sku_id:e -> dim_sku:sku_id:w [label="N : 1", arrowhead=crow, arrowtail=none];
-  sales_fact:store_id:e -> dim_store:store_id:w [label="N : 1", arrowhead=crow, arrowtail=none];
-  inventory_snapshot:sku_id:e -> dim_sku:sku_id:w [label="N : 1", arrowhead=crow, arrowtail=none];
-  inventory_snapshot:store_id:e -> dim_store:store_id:w [label="N : 1", arrowhead=crow, arrowtail=none];
-  dataset:sku_id:e -> sales_fact:sku_id:w [label="JOIN", color="#E76F51", fontcolor="#E76F51", style="dashed", arrowhead=open];
-  dataset:category_id:e -> dim_category:category_id:w [label="JOIN", color="#E76F51", fontcolor="#E76F51", style="dashed", arrowhead=open];
-  dataset:store_id:e -> dim_store:store_id:w [label="JOIN", color="#E76F51", fontcolor="#E76F51", style="dashed", arrowhead=open];
+  // Layout: 4 ranks left → right
+  { rank=same; dim_category; dim_holidays; }
+  { rank=same; dim_sku; dim_store; }
+  { rank=same; sales_fact; inventory_snapshot; dim_promo_calendar; }
+  { rank=same; dataset; }
+
+  // Невидимі edges для ранжування зліва направо
+  dim_category -> dim_sku [style=invis];
+  dim_sku -> sales_fact [style=invis];
+  sales_fact -> dataset [style=invis];
+
+  // FK-зв'язки (від parent до child, з відображенням кардинальності 1 : N)
+  dim_category:category_id:e -> dim_sku:category_id:w [label="1 : N", arrowhead=crow, arrowtail=none];
+  dim_sku:sku_id:e -> dim_promo_calendar:sku_id:w [label="1 : N", arrowhead=crow, arrowtail=none];
+  dim_store:store_id:e -> dim_promo_calendar:store_id:w [label="1 : N", arrowhead=crow, arrowtail=none];
+  dim_sku:sku_id:e -> sales_fact:sku_id:w [label="1 : N", arrowhead=crow, arrowtail=none];
+  dim_store:store_id:e -> sales_fact:store_id:w [label="1 : N", arrowhead=crow, arrowtail=none];
+  dim_sku:sku_id:e -> inventory_snapshot:sku_id:w [label="1 : N", arrowhead=crow, arrowtail=none];
+  dim_store:store_id:e -> inventory_snapshot:store_id:w [label="1 : N", arrowhead=crow, arrowtail=none];
+
+  // JOIN-зв'язки до dataset — constraint=false, не впливають на layout
+  sales_fact:sku_id:e -> dataset:sku_id:w [label="JOIN", color="#E76F51", fontcolor="#E76F51", style="dashed", arrowhead=open, constraint=false];
+  dim_category:category_id:e -> dataset:category_id:w [label="JOIN", color="#E76F51", fontcolor="#E76F51", style="dashed", arrowhead=open, constraint=false];
+  dim_store:store_id:e -> dataset:store_id:w [label="JOIN", color="#E76F51", fontcolor="#E76F51", style="dashed", arrowhead=open, constraint=false];
 }
