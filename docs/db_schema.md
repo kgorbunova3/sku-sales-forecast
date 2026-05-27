@@ -6,6 +6,12 @@
 
 ## ER-діаграма
 
+![ER schema](db_schema.png)
+
+*Фінальна таблиця `dataset` виділена помаранчевим. Помаранчевим пунктиром показано JOIN-зв'язки, синім — FK.*
+
+## ER-діаграма (інтерактивна, mermaid)
+
 ```mermaid
 erDiagram
     dim_category ||--o{ dim_sku : "category_id"
@@ -126,16 +132,10 @@ sales_fact
 
 | Артефакт | Файл |
 |---|---|
-| ER-діаграма (drawio) | [`db_schema.drawio`](db_schema.drawio) — відкрити на https://app.diagrams.net/ |
-| ER-діаграма (mermaid) | цей файл, рендериться прямо в GitHub |
+| ER-діаграма (PNG) | [`db_schema.png`](db_schema.png) — головний візуал, рендериться у README |
+| ER-діаграма (drawio, для редагування) | [`db_schema.drawio`](db_schema.drawio) |
 | SQL DDL + JOIN запит | [`sql_queries.md`](sql_queries.md) |
 | Тестові дані (xlsx) | [`../data/db/db_sample_data.xlsx`](../data/db/db_sample_data.xlsx) |
 | Тестові дані (csv)  | [`../data/db/`](../data/db/) — окремі файли |
 | Генератор даних | [`../scripts/generate_db_tables.py`](../scripts/generate_db_tables.py) |
-| Генератор схеми | [`../scripts/build_drawio_schema.py`](../scripts/build_drawio_schema.py) |
-
-## Як відкрити `.drawio`
-
-1. Перейти на https://app.diagrams.net/
-2. **File → Open from → Device** → вибрати `docs/db_schema.drawio`
-3. Або клік на файл у GitHub і кнопка **Edit with drawio** (якщо встановлено розширення)
+| Генератор PNG-схеми | [`../scripts/build_schema_png.py`](../scripts/build_schema_png.py) |
